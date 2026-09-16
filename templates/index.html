@@ -15,6 +15,7 @@
             <nav>
                 <a href="#profile">Profile</a>
                 <a href="#skills">Skills</a>
+                <a href="#experiences">Experiences</a>
                 <a href="#projects">Projects</a>
             </nav>
         </div>
@@ -27,7 +28,7 @@
                 
                 <div class="hero-identity">
                     <p class="hero-kicker">SISTEM INFORMASI · UNIVERSITAS INDONESIA</p>
-                    <h1>Fildza Hasnalia Nabila</h1>
+                    <h1>{{ name }}</h1>
                 </div>
 
                 <div class="hero-photo">
@@ -43,11 +44,11 @@
                     <div class="meta-list">
                         <div class="meta-row">
                             <dt>NPM</dt>
-                            <dd>2506625003</dd>
+                            <dd>{{ npm }}</dd>
                         </div>
                         <div class="meta-row">
-                            <dt>PROGRAM</dt>
-                            <dd>S1 Sistem Informasi</dd>
+                            <dt>CLASS</dt>
+                            <dd>{{ class }}</dd>
                         </div>
                     </div>
 
@@ -77,6 +78,22 @@
                     <h3>System Analysis</h3>
                     <p>Menganalisis kebutuhan bisnis dan merancang alur pemrosesan data sistem informasi yang terstruktur.</p>
                 </div>
+            </div>
+        </section>
+
+        <!-- Section Experiences (Daftar Pengalaman) -->
+        <section class="content-section" id="experiences">
+            <h2 class="section-title">Experiences</h2>
+            <div class="projects-grid">
+                {% for exp in experiences %}
+                <article class="project-card">
+                    <span class="project-tag">{{ exp.category }}</span>
+                    <h3>{{ exp.title }}</h3>
+                    <p>{{ exp.description }}</p>
+                </article>
+                {% empty %}
+                <p>Belum ada pengalaman yang ditambahkan.</p>
+                {% endfor %}
             </div>
         </section>
 

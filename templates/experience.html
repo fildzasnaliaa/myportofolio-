@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experience</title>
+</head>
+<body>
+    <h1>Daftar Pengalaman</h1>
+    {% for exp in experiences %}
+        <div>
+            <h2>{{ exp.title }}</h2>
+            <p><strong>Kategori:</strong> {{ exp.category }}</p>
+            <p>{{ exp.description }}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>
