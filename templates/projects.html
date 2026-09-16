@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experiences - {{ name }}</title>
+    <title>Projects - {{ name }}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
@@ -23,16 +23,16 @@
 
     <main class="container">
         <section class="content-section">
-            <h2 class="section-title">Daftar Pengalaman</h2>
+            <h2 class="section-title">Daftar Proyek</h2>
             <div class="projects-grid">
-                {% for exp in experiences %}
+                {% for proj in projects %}
                 <article class="project-card">
-                    <span class="project-tag">{{ exp.category }}</span>
-                    <h3>{{ exp.title }}</h3>
-                    <p>{{ exp.description }}</p>
+                    <span class="project-tag">{{ proj.tech_stack }}</span>
+                    <h3>{{ proj.title }}</h3>
+                    <p>{{ proj.description }}</p>
                 </article>
                 {% empty %}
-                <p>Belum ada pengalaman yang ditambahkan.</p>
+                <p>Belum ada proyek yang ditambahkan.</p>
                 {% endfor %}
             </div>
         </section>
