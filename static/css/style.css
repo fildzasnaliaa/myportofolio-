@@ -1,181 +1,256 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
-
-:root {
-    --y2k-pink: #ff7ebb;
-    --y2k-purple: #9b51e0;
-    --y2k-cyan: #00f2fe;
-    --y2k-dark: #120e24;
-    --y2k-card-bg: rgba(255, 255, 255, 0.75);
-}
-
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --ink: #1c1917;
+    --paper: #faf6f0;
+    --accent: #d95d39;
+    --accent-dark: #a8442a;
+    --line: #e3d9c9;
+    --text-muted: #6b6459;
+    --radius: 4px;
 }
 
 body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    min-height: 100vh;
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background-color: var(--paper);
+    line-height: 1.6;
+}
+
+h1, .brand, h2, h3 {
+    font-family: "Space Grotesk", -apple-system, sans-serif;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Header & Nav */
+.site-header {
+    border-bottom: 1px solid var(--line);
+}
+
+.site-header .container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    /* Background Y2K Holographic Gradient */
-    background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 50%, #fda085 100%);
-    background-attachment: fixed;
-    color: var(--y2k-dark);
-}
-
-/* Card Container Glassmorphism */
-.hero {
-    width: 100%;
-    max-width: 850px;
-    background: var(--y2k-card-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-radius: 28px;
-    padding: 45px;
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    box-shadow: 
-        0 20px 40px rgba(155, 81, 224, 0.15),
-        inset 0 0 20px rgba(255, 255, 255, 0.6);
-    position: relative;
-    overflow: hidden;
-}
-
-/* Aksesori Hiasan Y2K Stars */
-.hero::before {
-    content: '✦';
-    position: absolute;
-    top: 20px;
-    right: 25px;
-    font-size: 28px;
-    color: var(--y2k-purple);
-    opacity: 0.6;
-}
-
-.hero::after {
-    content: '✧';
-    position: absolute;
-    bottom: 20px;
-    left: 25px;
-    font-size: 32px;
-    color: var(--y2k-pink);
-    opacity: 0.6;
-}
-
-/* Grid Layout */
-.hero-grid {
-    display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 40px;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
 }
 
-.hero-bio {
-    flex: 1;
-}
-
-/* Tag Header / Badge */
-.sub-title {
-    display: inline-block;
-    padding: 6px 16px;
-    background: linear-gradient(90deg, #ff7ebb, #9b51e0);
-    color: #ffffff;
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    border-radius: 50px;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 10px rgba(255, 126, 187, 0.3);
-}
-
-/* Nama Utama dengan Text Gradient */
-h1 {
-    font-size: 2.6rem;
-    font-weight: 800;
-    line-height: 1.15;
-    margin-bottom: 24px;
-    background: linear-gradient(135deg, #120e24 0%, #7b2cbf 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-/* List Data Diri */
-.profile-dl {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 12px 20px;
-    background: rgba(255, 255, 255, 0.5);
-    padding: 20px;
-    border-radius: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.9);
-}
-
-.profile-dl dt {
-    font-weight: 800;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    color: #6c5ce7;
-    letter-spacing: 0.5px;
-}
-
-.profile-dl dd {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--y2k-dark);
-}
-
-.profile-dl a {
-    color: #d63384;
+.brand {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--ink);
     text-decoration: none;
-    font-weight: 800;
-    transition: all 0.2s ease;
 }
 
-.profile-dl a:hover {
-    color: #9b51e0;
-    text-decoration: underline;
+.site-header nav {
+    display: flex;
+    gap: 2rem;
 }
 
-/* Bingkai Foto Y2K Style */
+.site-header nav a {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.site-header nav a:hover {
+    color: var(--accent);
+}
+
+/* Hero Section */
+.hero {
+    padding: 4.5rem 0 3rem;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    grid-template-areas:
+        "identity photo"
+        "details  photo";
+    gap: 1.5rem 3rem;
+}
+
+.hero-identity { grid-area: identity; }
+.hero-details { grid-area: details; }
+
+.hero-kicker {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.hero-identity h1 {
+    font-size: clamp(3rem, 7vw, 5rem);
+    line-height: 0.95;
+}
+
+.bio {
+    color: var(--text-muted);
+    max-width: 480px;
+    margin-bottom: 1.5rem;
+}
+
+.meta-list {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.meta-row dt {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 0.15rem;
+}
+
+.meta-row dd {
+    font-weight: 600;
+}
+
+.social-links {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.social-link {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--paper);
+    background-color: var(--ink);
+    border-radius: var(--radius);
+    padding: 0.5rem 1.1rem;
+    transition: background-color 0.2s ease;
+}
+
+.social-link:hover {
+    background-color: var(--accent);
+}
+
+/* Photo */
 .hero-photo {
-    flex-shrink: 0;
+    grid-area: photo;
+    align-self: center;
     position: relative;
 }
 
 .photo-block {
-    position: relative;
-    padding: 8px;
-    background: linear-gradient(135deg, #ff7ebb, #00f2fe);
-    border-radius: 24px;
-    box-shadow: 0 12px 24px rgba(155, 81, 224, 0.25);
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    width: 100%;
+    height: 100%;
+    background-color: var(--accent);
+    border-radius: var(--radius);
+    z-index: 0;
 }
 
 .avatar {
-    width: 210px;
-    height: 270px;
-    object-fit: cover;
-    border-radius: 18px;
+    position: relative;
+    z-index: 1;
     display: block;
-    background-color: #fff;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 3px solid var(--ink);
 }
 
-/* Responsif untuk Layar HP */
-@media (max-width: 650px) {
+/* Content Sections Baru (Skills & Projects) */
+.content-section {
+    padding: 3rem 0;
+    border-top: 1px solid var(--line);
+}
+
+.section-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+}
+
+.skills-grid, .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.skill-card, .project-card {
+    background-color: #fff;
+    padding: 1.5rem;
+    border: 2px solid var(--ink);
+    border-radius: var(--radius);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.skill-card:hover, .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 4px 4px 0px var(--accent);
+}
+
+.skill-card h3, .project-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+}
+
+.skill-card p, .project-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.project-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+/* Footer */
+.site-footer {
+    padding: 1.5rem 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--line);
+    margin-top: 2rem;
+}
+
+/* Responsive Mobile */
+@media (max-width: 600px) {
     .hero-grid {
-        flex-direction: column-reverse;
-        text-align: center;
-        gap: 25px;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "identity"
+            "photo"
+            "details";
     }
-
-    .profile-dl {
-        text-align: left;
+    .hero-photo {
+        max-width: 220px;
     }
-
-    h1 {
-        font-size: 2rem;
+    .social-links {
+        justify-content: flex-start;
+    }
+    .site-header .container {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
     }
 }

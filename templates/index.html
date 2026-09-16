@@ -4,43 +4,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Fildza Hasnalia Nabila</title>
+    <title>Fildza Hasnalia Nabila - Profile</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <main>
+
+    <header class="site-header">
+        <div class="container">
+            <a href="#" class="brand">Fildza Hasnalia Nabila</a>
+            <nav>
+                <a href="#profile">Profile</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Section Profile -->
         <section class="hero" id="profile">
             <div class="hero-grid">
                 
-                <!-- Informasi Data Diri -->
-                <div class="hero-bio">
-                    <span class="sub-title">Sistem Informasi · Universitas Indonesia</span>
+                <div class="hero-identity">
+                    <p class="hero-kicker">SISTEM INFORMASI · UNIVERSITAS INDONESIA</p>
                     <h1>Fildza Hasnalia Nabila</h1>
-                    
-                    <dl class="profile-dl">
-                        <dt>NPM</dt>
-                        <dd>2506625003</dd>
-
-                        <dt>Program Studi</dt>
-                        <dd>Sistem Informasi</dd>
-
-                        <dt>Email</dt>
-                        <dd>fildza.hasnalia@ui.ac.id</dd>
-
-                        <dt>Social</dt>
-                        <dd><a href="https://github.com" target="_blank">GitHub Profile ↗</a></dd>
-                    </dl>
                 </div>
 
-                <!-- Foto Profil -->
                 <div class="hero-photo">
-                    <div class="photo-block">
-                        <img src="{% static 'img/foto-fildza.PNG' %}" alt="Foto Fildza Hasnalia Nabila" class="avatar">
+                    <div class="photo-block"></div>
+                    <img src="{% static 'img/foto-fildza.PNG' %}" alt="Foto Fildza Hasnalia Nabila" class="avatar">
+                </div>
+
+                <div class="hero-details">
+                    <p class="bio">
+                        Mahasiswa Sistem Informasi Fakultas Ilmu Komputer Universitas Indonesia.
+                    </p>
+
+                    <div class="meta-list">
+                        <div class="meta-row">
+                            <dt>NPM</dt>
+                            <dd>2506625003</dd>
+                        </div>
+                        <div class="meta-row">
+                            <dt>PROGRAM</dt>
+                            <dd>S1 Sistem Informasi</dd>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://github.com" target="_blank" class="social-link">GitHub</a>
+                        <a href="https://linkedin.com" target="_blank" class="social-link">LinkedIn</a>
+                        <a href="mailto:fildza.hasnalia@ui.ac.id" class="social-link">Email</a>
                     </div>
                 </div>
 
             </div>
         </section>
+
+        <!-- Section Skills (Section Baru 1) -->
+        <section class="content-section" id="skills">
+            <h2 class="section-title">Skills & Capabilities</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>UI/UX Design</h3>
+                    <p>Membuat rancangan wireframe dan prototipe antarmuka aplikasi yang intuitif serta berfokus pada pengalaman pengguna.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Web Development</h3>
+                    <p>Menguasai dasar-dasar pemrosesan antarmuka web modern menggunakan HTML5, CSS3, dan kerangka kerja Django.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>System Analysis</h3>
+                    <p>Menganalisis kebutuhan bisnis dan merancang alur pemrosesan data sistem informasi yang terstruktur.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Projects (Section Baru 2) -->
+        <section class="content-section" id="projects">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <article class="project-card">
+                    <span class="project-tag">Django & HTML/CSS</span>
+                    <h3>Personal Portfolio Website</h3>
+                    <p>Website portofolio pribadi responsif yang dibuat menggunakan Django, HTML5, dan CSS3 murni.</p>
+                </article>
+                <article class="project-card">
+                    <span class="project-tag">Figma & Prototyping</span>
+                    <h3>Mobile App UI Concept</h3>
+                    <p>Rancangan antarmuka pengguna untuk aplikasi layanan kampus berfokus pada kenyamanan navigasi.</p>
+                </article>
+                <article class="project-card">
+                    <span class="project-tag">Database & Python</span>
+                    <h3>Information System Design</h3>
+                    <p>Perancangan skema basis data dan analisis sistem informasi bisnis untuk pengelolaan data internal.</p>
+                </article>
+            </div>
+        </section>
+
     </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            &copy; 2026 Fildza Hasnalia Nabila. Fakultas Ilmu Komputer, Universitas Indonesia.
+        </div>
+    </footer>
+
 </body>
 </html>
