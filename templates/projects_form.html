@@ -1,29 +1,213 @@
-{% extends "base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Projects - {{ name }}</title>
 
-{% block meta %}
-<title>Add Project {{ name }}</title>
-{% endblock meta %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-{% block content %}
-<main>
-  <section class="experience-section">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #d6e4f0 0%, #b9d2e6 100%);
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+        }
+
+        .header-nav {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .header-nav .brand-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: #222;
+        }
+
+        .header-nav .nav-right {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-nav .nav-right a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .header-nav .nav-right a:hover {
+            color: #0284c7;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 90%;
+            margin: 120px auto 40px;
+            background: #fffdf9;
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .sub-header {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #0284c7;
+            margin-bottom: 6px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 24px;
+        }
+
+        .form-styled p {
+            margin-bottom: 18px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-styled label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+
+        .form-styled input, 
+        .form-styled textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            background-color: #ffffff;
+            color: #1f2937;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-styled input:focus, 
+        .form-styled textarea:focus {
+            border-color: #0284c7;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        }
+
+        .form-styled textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .btn-submit {
+            background-color: #0284c7;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: #0369a1;
+        }
+
+        .btn-cancel {
+            background-color: transparent;
+            color: #4b5563;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .btn-cancel:hover {
+            color: #111827;
+        }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 15px 0;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+            font-size: 12px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-nav">
+        <span class="brand-name">{{ name }}</span>
+        <div class="nav-right">
+            <a href="{% url 'main:show_main' %}">Profile</a>
+            <a href="{% url 'main:show_education' %}">Education</a>
+            <a href="{% url 'main:show_experience' %}">Experience</a>
+            <a href="{% url 'main:show_projects' %}">Projects</a>
+        </div>
+    </header>
+
     <div class="container">
-      <h1>Add New Projects</h1>
-      <form method="post" action="{% url 'main:create_project' %}" class="project-form">
-        {% csrf_token %}
-        {% for field in form %}
-          <div class="form-group">
-            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-            {{ field }}
-            {% for error in field.errors %}
-              <p class="form-error">{{ error }}</p>
-            {% endfor %}
-          </div>
-        {% endfor %}
-        <button type="submit" class="button">Tambah Project</button>
-        <a href="{% url 'main:show_projects' %}" class="button button-secondary">Batal</a>
-      </form>
+        <div class="sub-header">TAMBAHKAN PROJECT BARUMU!</div>
+        <h1 class="page-title">Add New Projects</h1>
+
+        <form method="POST" class="form-styled">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div class="btn-group">
+                <button type="submit" class="btn-submit">Tambah Project</button>
+                <a href="{% url 'main:show_projects' %}" class="btn-cancel">Batal</a>
+            </div>
+        </form>
     </div>
-  </section>
-</main>
-{% endblock content %}
+
+    <footer>
+        &copy; 2026 {{ name }}. Fakultas Ilmu Komputer, Universitas Indonesia.
+    </footer>
+
+</body>
+</html>

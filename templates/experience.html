@@ -4,44 +4,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experiences - {{ name }}</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Experience - {{ name }}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #d6e4f0 0%, #b9d2e6 100%);
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+        }
+
+        .header-nav {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .header-nav .brand-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: #222;
+        }
+
+        .header-nav .nav-right {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-nav .nav-right a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .header-nav .nav-right a:hover {
+            color: #0284c7;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 120px auto 40px;
+            background: #fffdf9;
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .sub-header {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #0284c7;
+            margin-bottom: 6px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 36px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .experience-list {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* Real Envelope Style */
+        .envelope-wrapper {
+            position: relative;
+            background: #eef4f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            padding-top: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s ease;
+        }
+
+        .envelope-wrapper:hover {
+            transform: translateY(-4px);
+        }
+
+        /* Flap Amplop Atas */
+        .envelope-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 45px;
+            background: #dbe7f2;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            border-bottom: 1px solid #cbd5e1;
+            z-index: 2;
+        }
+
+        /* Kertas Surat di Dalam Amplop */
+        .letter-paper {
+            position: relative;
+            background: #ffffff;
+            margin: 0 16px 16px 16px;
+            padding: 24px 28px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            z-index: 3;
+        }
+
+        /* Paper Clip Modern */
+        .paper-clip {
+            position: absolute;
+            top: -12px;
+            left: 32px;
+            width: 16px;
+            height: 40px;
+            border: 3px solid #64748b;
+            border-radius: 12px;
+            z-index: 4;
+            background: transparent;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.15);
+        }
+
+        .paper-clip::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 2px;
+            width: 6px;
+            height: 22px;
+            border: 2px solid #64748b;
+            border-radius: 8px;
+        }
+
+        .role-title {
+            font-size: 19px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+            padding-left: 10px;
+        }
+
+        .org-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+
+        .year-tag {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #0284c7;
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            padding: 4px 12px;
+            border-radius: 6px;
+            margin-left: 10px;
+            margin-bottom: 12px;
+        }
+
+        /* Nested Timeline untuk Sub-Role */
+        .sub-roles {
+            margin-top: 14px;
+            margin-left: 10px;
+            padding-left: 16px;
+            border-left: 2px solid #cbd5e1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .sub-role-item {
+            position: relative;
+        }
+
+        .sub-role-item::before {
+            content: '';
+            position: absolute;
+            left: -21px;
+            top: 6px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #0284c7;
+        }
+
+        .sub-role-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .sub-role-date {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 2px;
+        }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 15px 0;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+            font-size: 12px;
+            color: #444;
+        }
+    </style>
 </head>
 <body>
 
-    <header class="site-header">
-        <div class="container">
-            <a href="{% url 'main:show_main' %}" class="brand">{{ name }}</a>
-            <nav>
-                <a href="{% url 'main:show_main' %}#profile">Profile</a>
-                <a href="{% url 'main:show_main' %}#skills">Skills</a>
-                <a href="{% url 'main:show_experience' %}">Experiences</a>
-                <a href="{% url 'main:show_project' %}">Projects</a>
-            </nav>
+    <header class="header-nav">
+        <span class="brand-name">{{ name }}</span>
+        <div class="nav-right">
+            <a href="{% url 'main:show_main' %}">Profile</a>
+            <a href="{% url 'main:show_education' %}">Education</a>
+            <a href="{% url 'main:show_experience' %}">Experience</a>
+            <a href="{% url 'main:show_projects' %}">Projects</a>
         </div>
     </header>
 
-    <main class="container">
-        <section class="content-section">
-            <h2 class="section-title">Daftar Pengalaman</h2>
-            <div class="projects-grid">
-                {% for exp in experiences %}
-                <article class="project-card">
-                    <span class="project-tag">{{ exp.category }}</span>
-                    <h3>{{ exp.title }}</h3>
-                    <p>{{ exp.description }}</p>
-                </article>
-                {% empty %}
-                <p>Belum ada pengalaman yang ditambahkan.</p>
-                {% endfor %}
-            </div>
-        </section>
-    </main>
+    <div class="container">
+        <div class="sub-header">PENGALAMAN ORGANISASI</div>
+        <h1 class="page-title">Experience</h1>
 
-    <footer class="site-footer">
-        <div class="container">
-            &copy; 2026 {{ name }}. Fakultas Ilmu Komputer, Universitas Indonesia.
+        <div class="experience-list">
+            <!-- Item 1 -->
+            <div class="envelope-wrapper">
+                <div class="letter-paper">
+                    <div class="paper-clip"></div>
+                    <h2 class="role-title">Coordinator of Event Division</h2>
+                    <p class="org-name">Ibnu Hajar Musabaqah Festival</p>
+                    <span class="year-tag">Oct 2024 - Present · 2 yrs</span>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="envelope-wrapper">
+                <div class="letter-paper">
+                    <div class="paper-clip"></div>
+                    <h2 class="role-title">OSMIB SMA IHBS</h2>
+                    <span class="year-tag">3 yrs 8 mos</span>
+
+                    <div class="sub-roles">
+                        <div class="sub-role-item">
+                            <div class="sub-role-title">Secretary</div>
+                            <div class="sub-role-date">Feb 2024 - Present · 2 yrs 8 mos</div>
+                        </div>
+                        <div class="sub-role-item">
+                            <div class="sub-role-title">Member of Health Division</div>
+                            <div class="sub-role-date">Feb 2023 - Present · 3 yrs 8 mos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <footer>
+        &copy; 2026 {{ name }}. Fakultas Ilmu Komputer, Universitas Indonesia.
     </footer>
 
 </body>

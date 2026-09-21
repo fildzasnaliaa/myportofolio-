@@ -1,53 +1,308 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - {{ name }}</title>
 
-{% block meta %}
-<title>Projects - {{ name }}</title>
-{% endblock meta %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-{% block content %}
-<main>
-  <section class="experience-section">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #d6e4f0 0%, #b9d2e6 100%);
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+        }
+
+        .header-nav {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .header-nav .brand-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: #222;
+        }
+
+        .header-nav .nav-right {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-nav .nav-right a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .header-nav .nav-right a:hover {
+            color: #0284c7;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 120px auto 40px;
+            background: #fffdf9;
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-title-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 36px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .sub-header {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #0284c7;
+            margin-bottom: 6px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e3a8a;
+            line-height: 1;
+        }
+
+        .btn-add {
+            background-color: #0284c7;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-add:hover {
+            background-color: #0369a1;
+        }
+
+        .projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            background: #eef4f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            padding-top: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s ease;
+        }
+
+        .envelope-wrapper:hover {
+            transform: translateY(-4px);
+        }
+
+        .envelope-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 45px;
+            background: #dbe7f2;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            border-bottom: 1px solid #cbd5e1;
+            z-index: 2;
+        }
+
+        .letter-paper {
+            position: relative;
+            background: #ffffff;
+            margin: 0 16px 16px 16px;
+            padding: 24px 28px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            z-index: 3;
+        }
+
+        .paper-clip {
+            position: absolute;
+            top: -12px;
+            left: 32px;
+            width: 16px;
+            height: 40px;
+            border: 3px solid #64748b;
+            border-radius: 12px;
+            z-index: 4;
+            background: transparent;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.15);
+        }
+
+        .paper-clip::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 2px;
+            width: 6px;
+            height: 22px;
+            border: 2px solid #64748b;
+            border-radius: 8px;
+        }
+
+        .project-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 6px;
+            padding-left: 10px;
+        }
+
+        .project-tech {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #0284c7;
+            margin-bottom: 14px;
+            padding-left: 10px;
+            line-height: 1.4;
+        }
+
+        .project-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #475569;
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
+
+        .project-footer {
+            padding-top: 14px;
+            border-top: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e3a8a;
+            padding-left: 10px;
+        }
+
+        .btn-delete {
+            color: #ef4444;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .btn-delete:hover {
+            color: #dc2626;
+        }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 15px 0;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+            font-size: 12px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-nav">
+        <span class="brand-name">{{ name }}</span>
+        <div class="nav-right">
+            <a href="{% url 'main:show_main' %}">Profile</a>
+            <a href="{% url 'main:show_education' %}">Education</a>
+            <a href="{% url 'main:show_experience' %}">Experience</a>
+            <a href="{% url 'main:show_projects' %}">Projects</a>
+        </div>
+    </header>
+
     <div class="container">
-      {% if messages %}
-        <div class="messages">
-          {% for message in messages %}
-            <p class="alert alert-{{ message.tags }}">{{ message }}</p>
-          {% endfor %}
+        <div>
+            <div class="sub-header">KARYA YANG SAYA BANGUN</div>
+            <div class="header-title-container">
+                <h1 class="page-title">Projects</h1>
+                <a href="{% url 'main:create_project' %}" class="btn-add">Tambah Project</a>
+            </div>
         </div>
-      {% endif %}
 
-      <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-        <h1>My Projects</h1>
-        <a href="{% url 'main:create_project' %}" class="button">Tambah Project</a>
-      </div>
-
-      <form method="get" action="{% url 'main:show_projects' %}" style="margin-bottom: 2rem;">
-        <input type="text" name="title" placeholder="Cari berdasarkan judul..." value="{{ title_query }}" style="padding: 0.5rem 1rem; width: 100%; max-width: 400px; border-radius: 6px; border: 1px solid #ccc;">
-        <button type="submit" class="button" style="margin-left: 0.5rem;">Cari</button>
-      </form>
-
-      {% if project_list %}
-        <div class="projects-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
-          {% for project in project_list %}
-            <article class="project-card" style="border: 1px solid #ddd; padding: 1.5rem; border-radius: 8px;">
-              {% if project.project_image_url %}
-                <img src="{{ project.project_image_url }}" alt="{{ project.title }}" style="width: 100%; height: 180px; object-fit: cover; border-radius: 6px; margin-bottom: 1rem;">
-              {% endif %}
-              <h2>{{ project.title }}</h2>
-              <p>{{ project.description }}</p>
-              <p><strong>Tech Stack:</strong> {{ project.tech_stack }}</p>
-              {% if project.project_url %}
-                <p><a href="{{ project.project_url }}" target="_blank" rel="noopener">Lihat Proyek</a></p>
-              {% endif %}
-              
-              {% include 'components/project_delete_modal.html' with project=project %}
-            </article>
-          {% endfor %}
+        <div class="projects-list">
+            {% if projects %}
+                {% for project in projects %}
+                <div class="envelope-wrapper">
+                    <div class="letter-paper">
+                        <div class="paper-clip"></div>
+                        <h2 class="project-title">{{ project.title }}</h2>
+                        <div class="project-tech">{{ project.technologies }}</div>
+                        <p class="project-desc">{{ project.description }}</p>
+                        <div class="project-footer">
+                            <span>{{ project.category|default:"Project" }}</span>
+                            <a href="{% url 'main:delete_project' project.id %}" class="btn-delete">Hapus</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="envelope-wrapper">
+                    <div class="letter-paper">
+                        <div class="paper-clip"></div>
+                        <h2 class="project-title">EcoRaft</h2>
+                        <div class="project-tech">DC MOTOR, CONVEYOR BELT, ARCHIMEDES PRINCIPLE, OHM'S LAW</div>
+                        <p class="project-desc">
+                            EcoRaft is a prototype of an automated river cleaning device designed to efficiently transport waste from water to a storage container. The system uses a DC motor to power waterwheels for surface movement and a conveyor belt equipped with scrapers to lift waste into the container.
+                        </p>
+                        <div class="project-footer">
+                            <span>Revolutionizing Waste Management</span>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         </div>
-      {% else %}
-        <p>Belum ada proyek yang ditambahkan.</p>
-      {% endif %}
     </div>
-  </section>
-</main>
-{% endblock content %}
+
+    <footer>
+        &copy; 2026 {{ name }}. Fakultas Ilmu Komputer, Universitas Indonesia.
+    </footer>
+
+</body>
+</html>

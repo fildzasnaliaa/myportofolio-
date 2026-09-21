@@ -4,127 +4,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fildza Hasnalia Nabila - Profile</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Fildza Hasnalia Nabila</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            background: url("{% static 'img/bg-taman.JPG' %}") center/cover no-repeat fixed;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #333;
+        }
+
+        .header-nav {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .header-nav .brand-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: #222;
+        }
+
+        .header-nav .nav-right {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-nav .nav-right a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .header-nav .nav-right a:hover {
+            color: #0284c7;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 100px;
+            margin-bottom: 40px;
+            width: 100%;
+        }
+
+        .info-badge {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #0369a1;
+            background: rgba(224, 242, 254, 0.85);
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .lace-wrapper {
+            position: relative;
+            width: 90%;
+            max-width: 850px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: munculHalus 1s ease-out forwards;
+        }
+
+        .lace-wrapper .img-renda {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .lace-wrapper:hover .img-renda {
+            transform: scale(1.02);
+        }
+
+        .foto-frame {
+            position: absolute;
+            width: 28%;
+            aspect-ratio: 4 / 5;
+            border: 3px solid #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .foto-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+        }
+
+        .lace-wrapper:hover .foto-frame {
+            transform: scale(1.04);
+        }
+
+        .gambar-teks {
+            position: absolute;
+            width: 45%;
+            top: 8%;
+            left: 5%;
+            z-index: 2;
+            pointer-events: none;
+            transition: transform 0.3s ease;
+        }
+
+        .lace-wrapper:hover .gambar-teks {
+            transform: scale(1.02);
+        }
+
+        .meta-details {
+            display: flex;
+            gap: 40px;
+            margin-top: 15px;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 12px 28px;
+            border-radius: 12px;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-item .label {
+            font-size: 10px;
+            font-weight: 700;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .meta-item .value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #222;
+        }
+
+        .nav-pills {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            z-index: 3;
+            margin-top: 20px;
+            animation: munculHalus 1.2s ease-out forwards;
+        }
+
+        .nav-btn {
+            background-color: #fef3c7;
+            color: #78350f;
+            text-decoration: none;
+            padding: 8px 22px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border: 1.5px solid #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+            transition: all 0.25s ease;
+        }
+
+        .nav-btn:hover {
+            background-color: #fde68a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 15px 0;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+            font-size: 12px;
+            color: #444;
+        }
+
+        @keyframes munculHalus {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <header class="site-header">
-        <div class="container">
-            <a href="{% url 'main:show_main' %}" class="brand">Fildza Hasnalia Nabila</a>
-            <nav>
-                <a href="{% url 'main:show_main' %}#profile">Profile</a>
-                <a href="{% url 'main:show_main' %}#skills">Skills</a>
-                <a href="{% url 'main:show_experience' %}">Experiences</a>
-                <a href="{% url 'main:show_project' %}">Projects</a>
-            </nav>
+    <header class="header-nav">
+        <span class="brand-name">Fildza Hasnalia Nabila</span>
+        <div class="nav-right">
+            <a href="{% url 'main:show_main' %}">Profile</a>
+            <a href="{% url 'main:show_education' %}">Education</a>
+            <a href="{% url 'main:show_experience' %}">Experience</a>
+            <a href="{% url 'main:show_projects' %}">Projects</a>
         </div>
     </header>
 
-    <main class="container">
-        <!-- Section Profile -->
-        <section class="hero" id="profile">
-            <div class="hero-grid">
-                
-                <div class="hero-identity">
-                    <p class="hero-kicker">SISTEM INFORMASI · UNIVERSITAS INDONESIA</p>
-                    <h1>{{ name }}</h1>
-                </div>
+    <div class="main-container">
+        <div class="info-badge">Sistem Informasi &middot; Universitas Indonesia</div>
 
-                <div class="hero-photo">
-                    <div class="photo-block"></div>
-                    <img src="{% static 'img/foto-fildza.PNG' %}" alt="Foto Fildza Hasnalia Nabila" class="avatar">
-                </div>
+        <div class="lace-wrapper">
+            <img src="{% static 'img/teks-nama.PNG' %}" class="gambar-teks" alt="Fildza Hasnalia Nabila">
 
-                <div class="hero-details">
-                    <p class="bio">
-                        Mahasiswa Sistem Informasi Fakultas Ilmu Komputer Universitas Indonesia.
-                    </p>
-
-                    <div class="meta-list">
-                        <div class="meta-row">
-                            <dt>NPM</dt>
-                            <dd>{{ npm }}</dd>
-                        </div>
-                        <div class="meta-row">
-                            <dt>CLASS</dt>
-                            <dd>{{ class }}</dd>
-                        </div>
-                    </div>
-
-                    <div class="social-links">
-                        <a href="https://github.com" target="_blank" class="social-link">GitHub</a>
-                        <a href="https://linkedin.com" target="_blank" class="social-link">LinkedIn</a>
-                        <a href="mailto:fildza.hasnalia@ui.ac.id" class="social-link">Email</a>
-                    </div>
-                </div>
-
+            <div class="foto-frame">
+                <img src="{% static 'img/foto-fildza.PNG' %}" alt="Foto Fildza Hasnalia Nabila">
             </div>
-        </section>
 
-        <!-- Section Skills -->
-        <section class="content-section" id="skills">
-            <h2 class="section-title">Skills & Capabilities</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <h3>UI/UX Design</h3>
-                    <p>Membuat rancangan wireframe dan prototipe antarmuka aplikasi yang intuitif serta berfokus pada pengalaman pengguna.</p>
-                </div>
-                <div class="skill-card">
-                    <h3>Web Development</h3>
-                    <p>Menguasai dasar-dasar pemrosesan antarmuka web modern menggunakan HTML5, CSS3, dan kerangka kerja Django.</p>
-                </div>
-                <div class="skill-card">
-                    <h3>System Analysis</h3>
-                    <p>Menganalisis kebutuhan bisnis dan merancang alur pemrosesan data sistem informasi yang terstruktur.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section Experiences (Daftar Pengalaman) -->
-        <section class="content-section" id="experiences">
-            <h2 class="section-title">Experiences</h2>
-            <div class="projects-grid">
-                {% for exp in experiences %}
-                <article class="project-card">
-                    <span class="project-tag">{{ exp.category }}</span>
-                    <h3>{{ exp.title }}</h3>
-                    <p>{{ exp.description }}</p>
-                </article>
-                {% empty %}
-                <p>Belum ada pengalaman yang ditambahkan.</p>
-                {% endfor %}
-            </div>
-        </section>
-
-        <!-- Section Projects -->
-        <section class="content-section" id="projects">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-grid">
-                <article class="project-card">
-                    <span class="project-tag">Django & HTML/CSS</span>
-                    <h3>Personal Portfolio Website</h3>
-                    <p>Website portofolio pribadi responsif yang dibuat menggunakan Django, HTML5, dan CSS3 murni.</p>
-                </article>
-                <article class="project-card">
-                    <span class="project-tag">Figma & Prototyping</span>
-                    <h3>Mobile App UI Concept</h3>
-                    <p>Rancangan antarmuka pengguna untuk aplikasi layanan kampus berfokus pada kenyamanan navigasi.</p>
-                </article>
-                <article class="project-card">
-                    <span class="project-tag">Database & Python</span>
-                    <h3>Information System Design</h3>
-                    <p>Perancangan skema basis data dan analisis sistem informasi bisnis untuk pengelolaan data internal.</p>
-                </article>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="site-footer">
-        <div class="container">
-            &copy; 2026 Fildza Hasnalia Nabila. Fakultas Ilmu Komputer, Universitas Indonesia.
+            <img src="{% static 'img/bingkai-renda.PNG' %}" class="img-renda" alt="Bingkai Renda">
         </div>
+
+        <div class="meta-details">
+            <div class="meta-item">
+                <span class="label">NPM</span>
+                <span class="value">2506625003</span>
+            </div>
+            <div class="meta-item">
+                <span class="label">PROGRAM</span>
+                <span class="value">S1 Sistem Informasi</span>
+            </div>
+        </div>
+
+        <div class="nav-pills">
+            <a href="https://www.linkedin.com/in/fildza-hasnalia-nabila-05a60737b/" target="_blank" class="nav-btn">Linkedin</a>
+            <a href="mailto:fildzasnaliaa@gmail.com" class="nav-btn">Email</a>
+            <a href="https://github.com/fildzasnaliaa" target="_blank" class="nav-btn">Github</a>
+            <a href="{% url 'main:show_education' %}" class="nav-btn">Education</a>
+            <a href="{% url 'main:show_projects' %}" class="nav-btn">Project</a>
+            <a href="{% url 'main:show_experience' %}" class="nav-btn">Experience</a>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Fildza Hasnalia Nabila. Fakultas Ilmu Komputer, Universitas Indonesia.
     </footer>
 
 </body>

@@ -1,0 +1,250 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education - {{ name }}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #d6e4f0 0%, #b9d2e6 100%);
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+        }
+
+        .header-nav {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .header-nav .brand-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: #222;
+        }
+
+        .header-nav .nav-right {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-nav .nav-right a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .header-nav .nav-right a:hover {
+            color: #0284c7;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 120px auto 40px;
+            background: #fffdf9;
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .sub-header {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #0284c7;
+            margin-bottom: 6px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 36px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .education-list {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* Envelope Design */
+        .envelope-wrapper {
+            position: relative;
+            background: #eef4f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            padding-top: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s ease;
+        }
+
+        .envelope-wrapper:hover {
+            transform: translateY(-4px);
+        }
+
+        /* Flap Amplop Atas */
+        .envelope-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 45px;
+            background: #dbe7f2;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            border-bottom: 1px solid #cbd5e1;
+            z-index: 2;
+        }
+
+        /* Kertas Surat di Dalam Amplop */
+        .letter-paper {
+            position: relative;
+            background: #ffffff;
+            margin: 0 16px 16px 16px;
+            padding: 24px 28px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0; /* Thay đổi nét đứt thành nét liền mượt mà */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            z-index: 3;
+        }
+
+        /* Paper Clip */
+        .paper-clip {
+            position: absolute;
+            top: -12px;
+            left: 32px;
+            width: 16px;
+            height: 40px;
+            border: 3px solid #64748b;
+            border-radius: 12px;
+            z-index: 4;
+            background: transparent;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.15);
+        }
+
+        .paper-clip::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 2px;
+            width: 6px;
+            height: 22px;
+            border: 2px solid #64748b;
+            border-radius: 8px;
+        }
+
+        .school-name {
+            font-size: 19px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 6px;
+            padding-left: 10px;
+        }
+
+        .degree-info {
+            font-size: 14px;
+            color: #475569;
+            margin-bottom: 12px;
+            padding-left: 10px;
+        }
+
+        .year-tag {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #0284c7;
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            padding: 4px 12px;
+            border-radius: 6px;
+            margin-left: 10px;
+        }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 15px 0;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+            font-size: 12px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-nav">
+        <span class="brand-name">{{ name }}</span>
+        <div class="nav-right">
+            <a href="{% url 'main:show_main' %}">Profile</a>
+            <a href="{% url 'main:show_education' %}">Education</a>
+            <a href="{% url 'main:show_experience' %}">Experience</a>
+            <a href="{% url 'main:show_projects' %}">Projects</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="sub-header">JEJAK PENDIDIKAN</div>
+        <h1 class="page-title">Education</h1>
+
+        <div class="education-list">
+            <!-- Envelope Item 1 -->
+            <div class="envelope-wrapper">
+                <div class="letter-paper">
+                    <div class="paper-clip"></div>
+                    <h2 class="school-name">Universitas Indonesia</h2>
+                    <p class="degree-info">S1 Sistem Informasi - Fakultas Ilmu Komputer</p>
+                    <span class="year-tag">2025 - Sekarang</span>
+                </div>
+            </div>
+
+            <!-- Envelope Item 2 -->
+            <div class="envelope-wrapper">
+                <div class="letter-paper">
+                    <div class="paper-clip"></div>
+                    <h2 class="school-name">SMA Ibnu Hajar Boarding School</h2>
+                    <p class="degree-info">MIPA</p>
+                    <span class="year-tag">2022 - 2025</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 {{ name }}. Fakultas Ilmu Komputer, Universitas Indonesia.
+    </footer>
+
+</body>
+</html>
