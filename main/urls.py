@@ -11,6 +11,9 @@ from main.views import (
     create_project,
     update_project,
     delete_project,
+    register,
+    login_user,
+    logout_user,
 )
 
 app_name = 'main'
@@ -27,4 +30,7 @@ urlpatterns = [
     path('experience/create/', create_experience, name='create_experience'),
     path('experience/update/<uuid:id>/', update_experience, name='update_experience'),
     path('experience/delete/<uuid:id>/', delete_experience, name='delete_experience'),
+    path('register/', register, name='register'),
+    path('login/', login_user, name='login'),
+    path('logout/', logout_user, name='logout'),
 ]
