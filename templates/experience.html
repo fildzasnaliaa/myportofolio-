@@ -5,18 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Experience - {{ name }}</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"></script>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-
         body {
             min-height: 100vh;
             display: flex;
@@ -26,7 +24,6 @@
             font-family: 'Inter', sans-serif;
             color: #1f2937;
         }
-
         .header-nav {
             width: 100%;
             display: flex;
@@ -40,18 +37,15 @@
             left: 0;
             z-index: 10;
         }
-
         .header-nav .brand-name {
             font-weight: 700;
             font-size: 16px;
             color: #222;
         }
-
         .header-nav .nav-right {
             display: flex;
             gap: 20px;
         }
-
         .header-nav .nav-right a {
             text-decoration: none;
             color: #333;
@@ -59,11 +53,9 @@
             font-weight: 500;
             transition: color 0.2s ease;
         }
-
         .header-nav .nav-right a:hover {
             color: #0284c7;
         }
-
         .container {
             max-width: 800px;
             width: 90%;
@@ -74,7 +66,6 @@
             border: 1px solid rgba(255, 255, 255, 0.8);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
         }
-
         .sub-header {
             font-size: 11px;
             font-weight: 700;
@@ -83,23 +74,62 @@
             color: #0284c7;
             margin-bottom: 6px;
         }
-
+        .page-title-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e2e8f0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
         .page-title {
             font-size: 28px;
             font-weight: 700;
             color: #1e3a8a;
-            margin-bottom: 36px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #e2e8f0;
         }
-
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        .btn-primary {
+            background-color: #0284c7;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #0369a1;
+        }
+        .search-container {
+            margin-bottom: 30px;
+        }
+        .search-input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            background: #f8fafc;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .search-input:focus {
+            border-color: #0284c7;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+            background: #fff;
+        }
         .experience-list {
             display: flex;
             flex-direction: column;
             gap: 40px;
         }
-
-        /* Real Envelope Style */
         .envelope-wrapper {
             position: relative;
             background: #eef4f9;
@@ -109,12 +139,9 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
             transition: transform 0.2s ease;
         }
-
         .envelope-wrapper:hover {
             transform: translateY(-4px);
         }
-
-        /* Flap Amplop Atas */
         .envelope-wrapper::before {
             content: '';
             position: absolute;
@@ -127,8 +154,6 @@
             border-bottom: 1px solid #cbd5e1;
             z-index: 2;
         }
-
-        /* Kertas Surat di Dalam Amplop */
         .letter-paper {
             position: relative;
             background: #ffffff;
@@ -139,8 +164,6 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
             z-index: 3;
         }
-
-        /* Paper Clip Modern */
         .paper-clip {
             position: absolute;
             top: -12px;
@@ -153,7 +176,6 @@
             background: transparent;
             box-shadow: 2px 2px 5px rgba(0,0,0,0.15);
         }
-
         .paper-clip::after {
             content: '';
             position: absolute;
@@ -164,7 +186,6 @@
             border: 2px solid #64748b;
             border-radius: 8px;
         }
-
         .role-title {
             font-size: 19px;
             font-weight: 700;
@@ -172,7 +193,6 @@
             margin-bottom: 4px;
             padding-left: 10px;
         }
-
         .org-name {
             font-size: 15px;
             font-weight: 600;
@@ -180,7 +200,6 @@
             margin-bottom: 10px;
             padding-left: 10px;
         }
-
         .year-tag {
             display: inline-block;
             font-size: 12px;
@@ -193,8 +212,6 @@
             margin-left: 10px;
             margin-bottom: 12px;
         }
-
-        /* Nested Timeline untuk Sub-Role */
         .sub-roles {
             margin-top: 14px;
             margin-left: 10px;
@@ -204,11 +221,9 @@
             flex-direction: column;
             gap: 16px;
         }
-
         .sub-role-item {
             position: relative;
         }
-
         .sub-role-item::before {
             content: '';
             position: absolute;
@@ -219,19 +234,110 @@
             border-radius: 50%;
             background: #0284c7;
         }
-
         .sub-role-title {
             font-size: 15px;
             font-weight: 600;
             color: #1e293b;
         }
-
         .sub-role-date {
             font-size: 13px;
             color: #64748b;
             margin-top: 2px;
         }
-
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        .modal-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            animation: fadeIn 0.2s ease;
+        }
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 6px;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+        }
+        .form-group input:focus {
+            border-color: #0284c7;
+        }
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 24px;
+        }
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #334155;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #1e293b;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 12px;
+            position: fixed;
+            z-index: 1000;
+            right: 30px;
+            bottom: 30px;
+            font-size: 14px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        #toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
         footer {
             width: 100%;
             text-align: center;
@@ -244,7 +350,6 @@
     </style>
 </head>
 <body>
-
     <header class="header-nav">
         <span class="brand-name">{{ name }}</span>
         <div class="nav-right">
@@ -254,14 +359,19 @@
             <a href="{% url 'main:show_projects' %}">Projects</a>
         </div>
     </header>
-
     <div class="container">
         <div class="sub-header">PENGALAMAN ORGANISASI</div>
-        <h1 class="page-title">Experience</h1>
-
-        <div class="experience-list">
-            <!-- Item 1 -->
-            <div class="envelope-wrapper">
+        <div class="page-title-wrapper">
+            <h1 class="page-title">Experience</h1>
+            <div class="action-buttons">
+                <button class="btn-primary" onclick="openModal()">+ Add Experience</button>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Cari pengalaman atau organisasi...">
+        </div>
+        <div class="experience-list" id="experienceList">
+            <div class="envelope-wrapper" data-role="Coordinator of Event Division" data-org="Ibnu Hajar Musabaqah Festival">
                 <div class="letter-paper">
                     <div class="paper-clip"></div>
                     <h2 class="role-title">Coordinator of Event Division</h2>
@@ -269,14 +379,11 @@
                     <span class="year-tag">Oct 2024 - Present · 2 yrs</span>
                 </div>
             </div>
-
-            <!-- Item 2 -->
-            <div class="envelope-wrapper">
+            <div class="envelope-wrapper" data-role="OSMIB SMA IHBS" data-org="OSMIB SMA IHBS Secretary Health">
                 <div class="letter-paper">
                     <div class="paper-clip"></div>
                     <h2 class="role-title">OSMIB SMA IHBS</h2>
                     <span class="year-tag">3 yrs 8 mos</span>
-
                     <div class="sub-roles">
                         <div class="sub-role-item">
                             <div class="sub-role-title">Secretary</div>
@@ -291,10 +398,98 @@
             </div>
         </div>
     </div>
-
+    <div class="modal" id="experienceModal">
+        <div class="modal-content">
+            <h3 class="modal-title">Add New Experience</h3>
+            <form id="experienceForm" onsubmit="addExperience(event)">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="roleTitle">Role / Position</label>
+                    <input type="text" id="roleTitle" required placeholder="e.g. Head of Department">
+                </div>
+                <div class="form-group">
+                    <label for="orgName">Organization Name</label>
+                    <input type="text" id="orgName" required placeholder="e.g. BEM Fasilkom UI">
+                </div>
+                <div class="form-group">
+                    <label for="yearDuration">Duration / Period</label>
+                    <input type="text" id="yearDuration" required placeholder="e.g. Jan 2025 - Present">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Experience</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="toast">Experience added successfully!</div>
     <footer>
         &copy; 2026 {{ name }}. Fakultas Ilmu Komputer, Universitas Indonesia.
     </footer>
-
+    <script>
+        function openModal() {
+            document.getElementById('experienceModal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('experienceModal').style.display = 'none';
+        }
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = "show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+        function debounce(func, delay) {
+            let timeoutId;
+            return function(...args) {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => {
+                    func.apply(this, args);
+                }, delay);
+            };
+        }
+        const handleSearch = debounce((query) => {
+            const items = document.querySelectorAll('.envelope-wrapper');
+            const searchTerm = query.toLowerCase();
+            items.forEach(item => {
+                const role = item.getAttribute('data-role').toLowerCase();
+                const org = item.getAttribute('data-org').toLowerCase();
+                if (role.includes(searchTerm) || org.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }, 300);
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            handleSearch(e.target.value);
+        });
+        function addExperience(event) {
+            event.preventDefault();
+            const rawRole = document.getElementById('roleTitle').value;
+            const rawOrg = document.getElementById('orgName').value;
+            const rawDuration = document.getElementById('yearDuration').value;
+            const role = DOMPurify.sanitize(rawRole);
+            const org = DOMPurify.sanitize(rawOrg);
+            const duration = DOMPurify.sanitize(rawDuration);
+            const listContainer = document.getElementById('experienceList');
+            const newCard = document.createElement('div');
+            newCard.className = 'envelope-wrapper';
+            newCard.setAttribute('data-role', role);
+            newCard.setAttribute('data-org', org);
+            newCard.innerHTML = `
+                <div class="letter-paper">
+                    <div class="paper-clip"></div>
+                    <h2 class="role-title">${role}</h2>
+                    <p class="org-name">${org}</p>
+                    <span class="year-tag">${duration}</span>
+                </div>
+            `;
+            listContainer.prepend(newCard);
+            closeModal();
+            showToast('Experience added successfully!');
+            document.getElementById('experienceForm').reset();
+        }
+    </script>
 </body>
 </html>

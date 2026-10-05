@@ -37,9 +37,17 @@ class Project(models.Model):
     tech_stack = models.CharField(max_length=255)
     project_url = models.URLField(blank=True, null=True)
     project_image_url = models.URLField(blank=True, null=True)
-    
-    # TAMBAHAN UNTUK TUGAS 4: Relasi ManyToManyField untuk fitur Star
     starred_by = models.ManyToManyField(User, related_name='starred_projects', blank=True)
+
+    def __str__(self):
+        return self.title
+
+
+class Education(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    year = models.CharField(max_length=50)
 
     def __str__(self):
         return self.title

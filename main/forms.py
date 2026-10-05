@@ -1,5 +1,6 @@
 from django.forms import ModelForm, TextInput, Textarea, URLInput, Select, DateTimeInput
-from main.models import Project, Experience
+from django.utils.html import strip_tags
+from main.models import Project, Experience, Education
 
 class ProjectForm(ModelForm):
     class Meta:
@@ -19,6 +20,19 @@ class ProjectForm(ModelForm):
             "project_url": URLInput(attrs={"placeholder": "https://github.com/user/repo"}),
             "project_image_url": URLInput(attrs={"placeholder": "https://drive.google.com/..."}),
         }
+
+    def clean_title(self):
+        title = self.cleaned_data.get('title', '')
+        return strip_tags(title)
+
+    def clean_description(self):
+        description = self.cleaned_data.get('description', '')
+        return strip_tags(description)
+
+    def clean_tech_stack(self):
+        tech_stack = self.cleaned_data.get('tech_stack', '')
+        return strip_tags(tech_stack)
+
 
 class ExperienceForm(ModelForm):
     class Meta:
@@ -40,3 +54,39 @@ class ExperienceForm(ModelForm):
             "started_at": DateTimeInput(attrs={"type": "datetime-local"}),
             "ended_at": DateTimeInput(attrs={"type": "datetime-local"}),
         }
+
+    def clean_title(self):
+        title = self.cleaned_data.get('title', '')
+        return strip_tags(title)
+
+    def clean_description(self):
+        description = self.cleaned_data.get('description', '')
+        return strip_tags(description)
+
+
+class EducationForm(ModelForm):
+    class Meta:
+        model = Education
+        fields = ["title", "description", "year"]
+        labels = {
+            "title": "Institusi / Jenjang Pendidikan",
+            "description": "Deskripsi Pendidikan",
+            "year": "Tahun",
+        }
+        widgets = {
+            "title": TextInput(attrs={"placeholder": "Universitas Indonesia", "maxlength": 255}),
+            "description": Textarea(attrs={"placeholder": "Jurusan atau detail pendidikan", "rows": 3}),
+            "year": TextInput(attrs={"placeholder": "2024 - Sekarang"}),
+        }
+
+    def clean_title(self):
+        title = self.cleaned_data.get('title', '')
+        return strip_tags(title)
+
+    def clean_description(self):
+        description = self.cleaned_data.get('description', '')
+        return strip_tags(description)
+
+    def clean_year(self):
+        year = self.cleaned_data.get('year', '')
+        return strip_tags(year)

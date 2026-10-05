@@ -10,8 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.utils.html import strip_tags
-from main.models import Project, Experience
-from main.forms import ProjectForm, ExperienceForm
+from main.models import Project, Experience, Education
+from main.forms import ProjectForm, ExperienceForm, EducationForm
 
 def show_main(request):
     projects = Project.objects.all()
@@ -25,6 +25,25 @@ def show_main(request):
 
 def show_education(request):
     return render(request, 'education.html')
+
+def show_education_json(request):
+    data = Education.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+@csrf_exempt
+@require_POST
+@login_required(login_url='/login/')
+def add_education_ajax(request):
+    if not request.user.is_superuser:
+        return HttpResponseForbidden("Hanya superuser yang dapat menambahkan data education.")
+    
+    form = EducationForm(request.POST)
+    if form.is_valid():
+        education = form.save(commit=False)
+        education.save()
+        return JsonResponse({'status': 'created', 'message': 'Education successfully added!'}, status=201)
+    else:
+        return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
 
 def show_projects(request):
     projects = Project.objects.all()
@@ -41,12 +60,24 @@ def show_project_json(request):
 
 def show_experience(request):
     experiences = Experience.objects.all()
-    context = {'experiences': experiences}
+    is_editor = request.user.is_authenticated and request.user.groups.filter(name='Editor').exists()
+    context = {
+        'experiences': experiences,
+        'is_editor': is_editor,
+    }
     return render(request, 'experience.html', context)
 
 def show_experience_json(request):
     data = Experience.objects.all()
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    data_list = []
+    for item in data:
+        data_list.append({
+            'pk': item.pk,
+            'id': str(item.id),
+            'title': item.title,
+            'description': item.description,
+        })
+    return JsonResponse(data_list, safe=False)
 
 @login_required(login_url='/login/')
 def create_experience(request):
@@ -60,6 +91,22 @@ def create_experience(request):
         return redirect('main:show_experience')
     context = {'form': form}
     return render(request, 'create_experience.html', context)
+
+@csrf_exempt
+@require_POST
+@login_required(login_url='/login/')
+def create_experience_ajax(request):
+    if not request.user.is_superuser:
+        return HttpResponseForbidden("Hanya superuser yang dapat membuat data experience.")
+    
+    form = ExperienceForm(request.POST)
+    if form.is_valid():
+        experience = form.save(commit=False)
+        experience.user = request.user
+        experience.save()
+        return JsonResponse({'status': 'created', 'message': 'Experience successfully added!'}, status=201)
+    else:
+        return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
 
 @login_required(login_url='/login/')
 def update_experience(request, id):
@@ -102,19 +149,14 @@ def create_project_ajax(request):
     if not request.user.is_superuser:
         return HttpResponseForbidden("Hanya pemilik portofolio yang dapat membuat project.")
     
-    title = strip_tags(request.POST.get("title"))
-    description = strip_tags(request.POST.get("description"))
-    date = request.POST.get("date")
-
-    new_project = Project(
-        title=title,
-        description=description,
-        date=date,
-        user=request.user
-    )
-    new_project.save()
-
-    return HttpResponse(b"CREATED", status=201)
+    form = ProjectForm(request.POST)
+    if form.is_valid():
+        project = form.save(commit=False)
+        project.user = request.user
+        project.save()
+        return JsonResponse({'status': 'created', 'message': 'Project successfully added!'}, status=201)
+    else:
+        return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
 
 @login_required(login_url='/login/')
 def update_project(request, id):
