@@ -51,8 +51,9 @@ def show_projects(request):
     context = {
         'projects': projects,
         'is_editor': is_editor,
+        'form': ProjectForm(),
     }
-    return render(request, 'projects.html', context)
+    return render(request, 'project.html', context)
 
 def show_project_json(request):
     data = Project.objects.all()

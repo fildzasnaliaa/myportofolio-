@@ -8,10 +8,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-r5d@qa(s&99pn^l+o(v5@mcz*5a#9!m+&md7xk)$2xbp)5k3g4'
 
-DEBUG = True
-
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "*.pws.cs.ui.ac.id"]
 PRODUCTION = os.getenv('PRODUCTION', 'False').lower() == 'true'
+
+DEBUG = not PRODUCTION
+
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".pws.cs.ui.ac.id"]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost",
+    "http://127.0.0.1",
+    "https://*.pws.cs.ui.ac.id",
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -20,7 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main',  
+    'main',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -102,7 +110,6 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
-    BASE_DIR / 'main' / 'static',
 ]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'

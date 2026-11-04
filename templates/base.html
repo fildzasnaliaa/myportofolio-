@@ -13,7 +13,7 @@
 <body>
   <header class="site-header">
     <div class="container">
-      <a href="{% url 'main:show_main' %}" class="brand">{{ name }}</a>
+      <a href="{% url 'main:show_main' %}" class="brand">Fildza Hasnalia Nabila</a>
       <nav>
         <a href="{% url 'main:show_main' %}">Profile</a>
         <a href="{% url 'main:show_experience' %}">Experience</a>
@@ -36,8 +36,10 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>&copy; 2026 {{ name }}. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
+      <p>&copy; 2026 Fildza Hasnalia Nabila. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
     </div>
   </footer>
+
+  {% include 'components/toast.html' %}
 </body>
 </html>

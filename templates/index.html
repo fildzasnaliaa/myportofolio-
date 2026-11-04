@@ -27,7 +27,7 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            background: url("{% static 'img/bg-taman.JPG' %}") center/cover no-repeat fixed;
+            background: url("{% static 'img/bg-taman.jpg' %}") center/cover no-repeat fixed;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             color: #333;
         }
@@ -275,7 +275,7 @@
             <a href="{% url 'main:show_projects' %}">Projects</a>
             
             {% if user.is_authenticated %}
-                <a href="{% url 'main:logout_user' %}" class="auth-btn btn-logout">Logout</a>
+                <a href="{% url 'main:logout' %}" class="auth-btn btn-logout">Logout</a>
             {% else %}
                 <a href="{% url 'main:login' %}" class="auth-btn btn-login">Login</a>
                 <a href="{% url 'main:register' %}" class="auth-btn btn-login" style="background-color: #0d9488;">Register</a>
@@ -293,13 +293,13 @@
         <div class="info-badge">Sistem Informasi &middot; Universitas Indonesia</div>
 
         <div class="lace-wrapper">
-            <img src="{% static 'img/teks-nama.PNG' %}" class="gambar-teks" alt="Fildza Hasnalia Nabila">
+            <img src="{% static 'img/teks-nama.png' %}" class="gambar-teks" alt="Fildza Hasnalia Nabila">
 
             <div class="foto-frame">
-                <img src="{% static 'img/foto-fildza.PNG' %}" alt="Foto Fildza Hasnalia Nabila">
+                <img src="{% static 'img/foto-fildza.png' %}" alt="Foto Fildza Hasnalia Nabila">
             </div>
 
-            <img src="{% static 'img/bingkai-renda.PNG' %}" class="img-renda" alt="Bingkai Renda">
+            <img src="{% static 'img/bingkai-renda.png' %}" class="img-renda" alt="Bingkai Renda">
         </div>
 
         <div class="meta-details">
