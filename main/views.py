@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 from django.utils.html import strip_tags
 from main.models import Project, Experience, Education
@@ -59,12 +59,14 @@ def show_project_json(request):
     data = Project.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
+@ensure_csrf_cookie
 def show_experience(request):
     experiences = Experience.objects.all()
     is_editor = request.user.is_authenticated and request.user.groups.filter(name='Editor').exists()
     context = {
         'experiences': experiences,
         'is_editor': is_editor,
+        'form': ExperienceForm(),
     }
     return render(request, 'experience.html', context)
 

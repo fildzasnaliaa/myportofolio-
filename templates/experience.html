@@ -4,11 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experience - {{ name }}</title>
+    <title>Experience - Fildza Hasnalia Nabila</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -23,6 +22,9 @@
             background: linear-gradient(135deg, #d6e4f0 0%, #b9d2e6 100%);
             font-family: 'Inter', sans-serif;
             color: #1f2937;
+        }
+        .hide {
+            display: none !important;
         }
         .header-nav {
             width: 100%;
@@ -45,6 +47,7 @@
         .header-nav .nav-right {
             display: flex;
             gap: 20px;
+            align-items: center;
         }
         .header-nav .nav-right a {
             text-decoration: none;
@@ -55,6 +58,23 @@
         }
         .header-nav .nav-right a:hover {
             color: #0284c7;
+        }
+        .header-nav .nav-right .auth-btn {
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 650;
+            color: #fff;
+            background-color: #0284c7;
+        }
+        .header-nav .nav-right .auth-btn.btn-register {
+            background-color: #0d9488;
+        }
+        .header-nav .nav-right .auth-btn.btn-logout {
+            background-color: #dc2626;
+        }
+        .header-nav .nav-right .auth-btn:hover {
+            color: #fff;
         }
         .container {
             max-width: 800px;
@@ -89,10 +109,6 @@
             font-weight: 700;
             color: #1e3a8a;
         }
-        .action-buttons {
-            display: flex;
-            gap: 12px;
-        }
         .btn-primary {
             background-color: #0284c7;
             color: white;
@@ -106,6 +122,10 @@
         }
         .btn-primary:hover {
             background-color: #0369a1;
+        }
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: wait;
         }
         .search-container {
             margin-bottom: 30px;
@@ -124,6 +144,20 @@
             border-color: #0284c7;
             box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
             background: #fff;
+        }
+        .state-box {
+            text-align: center;
+            padding: 32px 16px;
+            font-size: 14px;
+            color: #475569;
+            background: #eef4f9;
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+        }
+        .state-box.is-error {
+            color: #b91c1c;
+            background: #fef2f2;
+            border-color: #fecaca;
         }
         .experience-list {
             display: flex;
@@ -186,6 +220,13 @@
             border: 2px solid #64748b;
             border-radius: 8px;
         }
+        .experience-thumbnail {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 14px;
+        }
         .role-title {
             font-size: 19px;
             font-weight: 700;
@@ -195,10 +236,18 @@
         }
         .org-name {
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 500;
             color: #334155;
             margin-bottom: 10px;
             padding-left: 10px;
+            white-space: pre-line;
+        }
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding-left: 10px;
+            margin-bottom: 12px;
         }
         .year-tag {
             display: inline-block;
@@ -209,62 +258,54 @@
             border: 1px solid #bae6fd;
             padding: 4px 12px;
             border-radius: 6px;
-            margin-left: 10px;
-            margin-bottom: 12px;
         }
-        .sub-roles {
-            margin-top: 14px;
-            margin-left: 10px;
-            padding-left: 16px;
-            border-left: 2px solid #cbd5e1;
+        .year-tag.category-tag {
+            color: #78350f;
+            background: #fef3c7;
+            border-color: #fde68a;
+        }
+        .card-footer {
+            padding-top: 12px;
+            border-top: 1px solid #f1f5f9;
             display: flex;
-            flex-direction: column;
-            gap: 16px;
+            justify-content: flex-end;
+            gap: 14px;
+            flex-wrap: wrap;
         }
-        .sub-role-item {
-            position: relative;
-        }
-        .sub-role-item::before {
-            content: '';
-            position: absolute;
-            left: -21px;
-            top: 6px;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #0284c7;
-        }
-        .sub-role-title {
-            font-size: 15px;
-            font-weight: 600;
-            color: #1e293b;
-        }
-        .sub-role-date {
+        .card-footer a,
+        .card-footer button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
             font-size: 13px;
-            color: #64748b;
-            margin-top: 2px;
+            font-weight: 600;
+            text-decoration: none;
         }
+        .card-footer button:disabled {
+            opacity: 0.5;
+            cursor: wait;
+        }
+        .btn-star { color: #d97706; }
+        .btn-star:hover, .btn-star.is-starred { color: #b45309; }
+        .btn-edit { color: #2563eb; }
+        .btn-edit:hover { color: #1d4ed8; }
+        .btn-delete { color: #ef4444; }
+        .btn-delete:hover { color: #dc2626; }
         .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(4px);
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-        }
-        .modal-content {
-            background: #fff;
+            margin: auto;
+            border: none;
             padding: 30px;
             border-radius: 16px;
-            width: 100%;
-            max-width: 450px;
+            width: min(480px, 90vw);
+            max-height: 90vh;
+            overflow-y: auto;
             box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-            animation: fadeIn 0.2s ease;
+            background: #fff;
+        }
+        .modal::backdrop {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
         }
         .modal-title {
             font-size: 20px;
@@ -282,16 +323,23 @@
             color: #475569;
             margin-bottom: 6px;
         }
-        .form-group input, .form-group textarea {
+        .form-group input, .form-group textarea, .form-group select {
             width: 100%;
             padding: 10px 14px;
             border: 1px solid #cbd5e1;
             border-radius: 8px;
             font-size: 14px;
+            font-family: inherit;
             outline: none;
+            background: #fff;
         }
-        .form-group input:focus {
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
             border-color: #0284c7;
+        }
+        .form-hint {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 4px;
         }
         .modal-actions {
             display: flex;
@@ -311,33 +359,6 @@
         .btn-secondary:hover {
             background: #cbd5e1;
         }
-        #toast {
-            visibility: hidden;
-            min-width: 250px;
-            background-color: #1e293b;
-            color: #fff;
-            text-align: center;
-            border-radius: 8px;
-            padding: 12px;
-            position: fixed;
-            z-index: 1000;
-            right: 30px;
-            bottom: 30px;
-            font-size: 14px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        #toast.show {
-            visibility: visible;
-            animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        }
-        @keyframes fadein {
-            from {bottom: 0; opacity: 0;}
-            to {bottom: 30px; opacity: 1;}
-        }
-        @keyframes fadeout {
-            from {bottom: 30px; opacity: 1;}
-            to {bottom: 0; opacity: 0;}
-        }
         footer {
             width: 100%;
             text-align: center;
@@ -347,149 +368,319 @@
             font-size: 12px;
             color: #444;
         }
+        @media (max-width: 640px) {
+            .header-nav {
+                padding: 14px 16px;
+                flex-direction: column;
+                gap: 8px;
+            }
+            .header-nav .nav-right {
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .container {
+                margin-top: 150px;
+                padding: 24px 16px;
+            }
+        }
     </style>
 </head>
 <body>
+
     <header class="header-nav">
-        <span class="brand-name">{{ name }}</span>
+        <span class="brand-name">Fildza Hasnalia Nabila</span>
         <div class="nav-right">
             <a href="{% url 'main:show_main' %}">Profile</a>
             <a href="{% url 'main:show_education' %}">Education</a>
             <a href="{% url 'main:show_experience' %}">Experience</a>
             <a href="{% url 'main:show_projects' %}">Projects</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'main:logout' %}" class="auth-btn btn-logout">Logout</a>
+            {% else %}
+                <a href="{% url 'main:login' %}" class="auth-btn">Login</a>
+                <a href="{% url 'main:register' %}" class="auth-btn btn-register">Register</a>
+            {% endif %}
         </div>
     </header>
+
     <div class="container">
         <div class="sub-header">PENGALAMAN ORGANISASI</div>
         <div class="page-title-wrapper">
             <h1 class="page-title">Experience</h1>
-            <div class="action-buttons">
-                <button class="btn-primary" onclick="openModal()">+ Add Experience</button>
-            </div>
+            {% if user.is_superuser %}
+                <button type="button" class="btn-primary" id="btn-open-add">+ Add Experience</button>
+            {% endif %}
         </div>
-        <div class="search-container">
-            <input type="text" id="searchInput" class="search-input" placeholder="Cari pengalaman atau organisasi...">
-        </div>
-        <div class="experience-list" id="experienceList">
-            <div class="envelope-wrapper" data-role="Coordinator of Event Division" data-org="Ibnu Hajar Musabaqah Festival">
-                <div class="letter-paper">
-                    <div class="paper-clip"></div>
-                    <h2 class="role-title">Coordinator of Event Division</h2>
-                    <p class="org-name">Ibnu Hajar Musabaqah Festival</p>
-                    <span class="year-tag">Oct 2024 - Present · 2 yrs</span>
-                </div>
-            </div>
-            <div class="envelope-wrapper" data-role="OSMIB SMA IHBS" data-org="OSMIB SMA IHBS Secretary Health">
-                <div class="letter-paper">
-                    <div class="paper-clip"></div>
-                    <h2 class="role-title">OSMIB SMA IHBS</h2>
-                    <span class="year-tag">3 yrs 8 mos</span>
-                    <div class="sub-roles">
-                        <div class="sub-role-item">
-                            <div class="sub-role-title">Secretary</div>
-                            <div class="sub-role-date">Feb 2024 - Present · 2 yrs 8 mos</div>
-                        </div>
-                        <div class="sub-role-item">
-                            <div class="sub-role-title">Member of Health Division</div>
-                            <div class="sub-role-date">Feb 2023 - Present · 3 yrs 8 mos</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+        <form id="experience-search-form" class="search-container" role="search">
+            <input type="search" id="search-input" name="search" class="search-input" placeholder="Cari pengalaman atau organisasi..." autocomplete="off">
+        </form>
+
+        <div id="loading" class="state-box">Memuat pengalaman...</div>
+        <div id="error" class="state-box is-error hide">Gagal memuat pengalaman. Coba muat ulang halaman.</div>
+        <div id="empty" class="state-box hide">Belum ada pengalaman yang cocok.</div>
+        <div id="grid" class="experience-list hide"></div>
     </div>
-    <div class="modal" id="experienceModal">
-        <div class="modal-content">
-            <h3 class="modal-title">Add New Experience</h3>
-            <form id="experienceForm" onsubmit="addExperience(event)">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="roleTitle">Role / Position</label>
-                    <input type="text" id="roleTitle" required placeholder="e.g. Head of Department">
-                </div>
-                <div class="form-group">
-                    <label for="orgName">Organization Name</label>
-                    <input type="text" id="orgName" required placeholder="e.g. BEM Fasilkom UI">
-                </div>
-                <div class="form-group">
-                    <label for="yearDuration">Duration / Period</label>
-                    <input type="text" id="yearDuration" required placeholder="e.g. Jan 2025 - Present">
-                </div>
+
+    {% if user.is_superuser or is_editor %}
+        <div id="experience-modal" class="modal" popover="auto" role="dialog" aria-labelledby="experience-modal-title">
+            <div class="modal-title" id="experience-modal-title">Tambah Experience</div>
+            <form id="experience-form" novalidate>
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.name == 'ended_at' %}
+                            <p class="form-hint">Kosongkan jika masih berlangsung.</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
                 <div class="modal-actions">
-                    <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
-                    <button type="submit" class="btn-primary">Save Experience</button>
+                    <button type="button" class="btn-secondary" popovertarget="experience-modal" popovertargetaction="hide">Batal</button>
+                    <button type="submit" class="btn-primary" id="experience-submit">Simpan</button>
                 </div>
             </form>
         </div>
-    </div>
-    <div id="toast">Experience added successfully!</div>
+    {% endif %}
+
     <footer>
-        &copy; 2026 {{ name }}. Fakultas Ilmu Komputer, Universitas Indonesia.
+        &copy; 2026 Fildza Hasnalia Nabila. Fakultas Ilmu Komputer, Universitas Indonesia.
     </footer>
+
+    {% include 'components/toast.html' %}
+
+    {% csrf_token %}
     <script>
-        function openModal() {
-            document.getElementById('experienceModal').style.display = 'flex';
+        const LIST_ENDPOINT = "{% url 'api:experience-list' %}";
+        const DETAIL_ENDPOINT = "{% url 'api:experience-detail' '00000000-0000-0000-0000-000000000000' %}";
+        const STAR_ENDPOINT = "{% url 'api:experience-star' '00000000-0000-0000-0000-000000000000' %}";
+        const LOGIN_URL = "{% url 'main:login' %}";
+        const IS_SUPERUSER = "{{ user.is_superuser|yesno:'true,false' }}" === "true";
+        const IS_AUTHENTICATED = "{{ user.is_authenticated|yesno:'true,false' }}" === "true";
+        const IS_EDITOR = "{{ is_editor|yesno:'true,false' }}" === "true";
+        const FORM_FIELDS = ['title', 'description', 'category', 'thumbnail', 'started_at', 'ended_at'];
+
+        const loadingState = document.getElementById('loading');
+        const errorState = document.getElementById('error');
+        const emptyState = document.getElementById('empty');
+        const gridContainer = document.getElementById('grid');
+        const searchForm = document.getElementById('experience-search-form');
+        const searchInput = document.getElementById('search-input');
+        const modal = document.getElementById('experience-modal');
+        const experienceForm = document.getElementById('experience-form');
+        const modalTitle = document.getElementById('experience-modal-title');
+        const addButton = document.getElementById('btn-open-add');
+        let experiences = [];
+        let editingId = null;
+        let abortController;
+        let debounceTimer;
+
+        function getCookie(name) {
+            const prefix = `${name}=`;
+            const cookie = document.cookie.split(';').map(value => value.trim())
+                .find(value => value.startsWith(prefix));
+            return cookie ? decodeURIComponent(cookie.slice(prefix.length)) : null;
         }
-        function closeModal() {
-            document.getElementById('experienceModal').style.display = 'none';
+
+        function escapeHtml(value) {
+            return String(value ?? '').replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;').replaceAll("'", '&#39;');
         }
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = "show";
-            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+
+        function endpointFor(pattern, id) {
+            return pattern.replace('00000000-0000-0000-0000-000000000000', id);
         }
-        function debounce(func, delay) {
-            let timeoutId;
-            return function(...args) {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(() => {
-                    func.apply(this, args);
-                }, delay);
-            };
+
+        function formatMonth(value) {
+            return new Date(value).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
         }
-        const handleSearch = debounce((query) => {
-            const items = document.querySelectorAll('.envelope-wrapper');
-            const searchTerm = query.toLowerCase();
-            items.forEach(item => {
-                const role = item.getAttribute('data-role').toLowerCase();
-                const org = item.getAttribute('data-org').toLowerCase();
-                if (role.includes(searchTerm) || org.includes(searchTerm)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }, 300);
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            handleSearch(e.target.value);
-        });
-        function addExperience(event) {
-            event.preventDefault();
-            const rawRole = document.getElementById('roleTitle').value;
-            const rawOrg = document.getElementById('orgName').value;
-            const rawDuration = document.getElementById('yearDuration').value;
-            const role = DOMPurify.sanitize(rawRole);
-            const org = DOMPurify.sanitize(rawOrg);
-            const duration = DOMPurify.sanitize(rawDuration);
-            const listContainer = document.getElementById('experienceList');
-            const newCard = document.createElement('div');
-            newCard.className = 'envelope-wrapper';
-            newCard.setAttribute('data-role', role);
-            newCard.setAttribute('data-org', org);
-            newCard.innerHTML = `
-                <div class="letter-paper">
-                    <div class="paper-clip"></div>
-                    <h2 class="role-title">${role}</h2>
-                    <p class="org-name">${org}</p>
-                    <span class="year-tag">${duration}</span>
+
+        function formatDuration(start, end) {
+            const startDate = new Date(start);
+            const endDate = end ? new Date(end) : new Date();
+            let months = (endDate.getFullYear() - startDate.getFullYear()) * 12
+                + endDate.getMonth() - startDate.getMonth();
+            if (months < 1) months = 1;
+            const years = Math.floor(months / 12);
+            const rest = months % 12;
+            return [years ? `${years} yr${years > 1 ? 's' : ''}` : '', rest ? `${rest} mo${rest > 1 ? 's' : ''}` : '']
+                .filter(Boolean).join(' ');
+        }
+
+        function toLocalInput(value) {
+            if (!value) return '';
+            const date = new Date(value);
+            const offset = date.getTimezoneOffset() * 60000;
+            return new Date(date - offset).toISOString().slice(0, 16);
+        }
+
+        function toApiDate(value) {
+            return value ? new Date(value).toISOString() : null;
+        }
+
+        function showSection({ loading = false, error = false, empty = false, grid = false }) {
+            loadingState.classList.toggle('hide', !loading);
+            errorState.classList.toggle('hide', !error);
+            emptyState.classList.toggle('hide', !empty);
+            gridContainer.classList.toggle('hide', !grid);
+        }
+
+        function buildCard(experience) {
+            const article = document.createElement('article');
+            article.className = 'envelope-wrapper';
+            const period = `${formatMonth(experience.started_at)} - ${experience.is_ongoing ? 'Present' : formatMonth(experience.ended_at)}`;
+            const thumbnail = experience.thumbnail
+                ? `<img src="${escapeHtml(experience.thumbnail)}" alt="${escapeHtml(experience.title)}" class="experience-thumbnail">` : '';
+            const star = IS_AUTHENTICATED
+                ? `<button type="button" class="btn-star${experience.is_starred ? ' is-starred' : ''}" data-action="star" data-id="${escapeHtml(experience.id)}">
+                    ${experience.is_starred ? '★ Unstar' : '☆ Star'} (${experience.star_count})</button>`
+                : `<a href="${LOGIN_URL}" class="btn-star">☆ Login untuk star (${experience.star_count})</a>`;
+            const edit = IS_SUPERUSER || IS_EDITOR
+                ? `<button type="button" class="btn-edit" data-action="edit" data-id="${escapeHtml(experience.id)}">Edit</button>` : '';
+            const remove = IS_SUPERUSER
+                ? `<button type="button" class="btn-delete" data-action="delete" data-id="${escapeHtml(experience.id)}">Hapus</button>` : '';
+            article.innerHTML = `<div class="letter-paper">
+                <div class="paper-clip"></div>
+                ${thumbnail}
+                <h2 class="role-title">${escapeHtml(experience.title)}</h2>
+                <p class="org-name">${escapeHtml(experience.description)}</p>
+                <div class="tag-row">
+                    <span class="year-tag category-tag">${escapeHtml(experience.category_display)}</span>
+                    <span class="year-tag">${escapeHtml(period)} · ${escapeHtml(formatDuration(experience.started_at, experience.ended_at))}</span>
                 </div>
-            `;
-            listContainer.prepend(newCard);
-            closeModal();
-            showToast('Experience added successfully!');
-            document.getElementById('experienceForm').reset();
+                <div class="card-footer">${star}${edit}${remove}</div>
+            </div>`;
+            return article;
         }
+
+        async function fetchExperiences(query = '') {
+            if (abortController) abortController.abort();
+            abortController = new AbortController();
+            try {
+                showSection({ loading: true });
+                const url = new URL(LIST_ENDPOINT, window.location.origin);
+                if (query) url.searchParams.set('search', query);
+                const response = await fetch(url, {
+                    headers: { Accept: 'application/json' },
+                    signal: abortController.signal,
+                });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                experiences = await response.json();
+                gridContainer.replaceChildren(...experiences.map(buildCard));
+                showSection({ grid: experiences.length > 0, empty: experiences.length === 0 });
+            } catch (error) {
+                if (error.name === 'AbortError') return;
+                console.error(error);
+                showSection({ error: true });
+            }
+        }
+
+        function apiErrorMessage(data, status) {
+            if (data.detail) return data.detail;
+            const messages = Object.entries(data).map(([field, value]) => {
+                const text = [value].flat().join(' ');
+                return field === 'non_field_errors' ? text : `${field}: ${text}`;
+            });
+            return messages.join(' | ') || `Permintaan gagal (HTTP ${status}).`;
+        }
+
+        async function sendRequest(url, method, payload) {
+            const response = await fetch(url, {
+                method,
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+                body: payload === undefined ? undefined : JSON.stringify(payload),
+            });
+            if (response.status === 204) return null;
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok) throw new Error(apiErrorMessage(data, response.status));
+            return data;
+        }
+
+        function openModal(experience = null) {
+            editingId = experience ? experience.id : null;
+            modalTitle.textContent = experience ? 'Edit Experience' : 'Tambah Experience';
+            experienceForm.reset();
+            if (experience) {
+                experienceForm.elements.title.value = experience.title;
+                experienceForm.elements.description.value = experience.description;
+                experienceForm.elements.category.value = experience.category;
+                experienceForm.elements.thumbnail.value = experience.thumbnail || '';
+                experienceForm.elements.started_at.value = toLocalInput(experience.started_at);
+                experienceForm.elements.ended_at.value = toLocalInput(experience.ended_at);
+            }
+            modal.showPopover();
+        }
+
+        async function submitExperience(event) {
+            event.preventDefault();
+            const button = document.getElementById('experience-submit');
+            button.disabled = true;
+            try {
+                const fields = new FormData(experienceForm);
+                const payload = Object.fromEntries(FORM_FIELDS.map(name => [name, fields.get(name)]));
+                payload.started_at = toApiDate(payload.started_at);
+                payload.ended_at = toApiDate(payload.ended_at);
+                if (editingId) {
+                    await sendRequest(endpointFor(DETAIL_ENDPOINT, editingId), 'PATCH', payload);
+                    showToast('Berhasil', 'Experience berhasil diperbarui.', 'success');
+                } else {
+                    await sendRequest(LIST_ENDPOINT, 'POST', payload);
+                    showToast('Berhasil', 'Experience baru berhasil ditambahkan.', 'success');
+                }
+                modal.hidePopover();
+                await fetchExperiences(searchInput.value.trim());
+            } catch (error) {
+                showToast('Gagal menyimpan', error.message, 'error', 5000);
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        if (addButton) addButton.addEventListener('click', () => openModal());
+        if (experienceForm) experienceForm.addEventListener('submit', submitExperience);
+
+        gridContainer.addEventListener('click', async function(event) {
+            const button = event.target.closest('button[data-action]');
+            if (!button || button.disabled) return;
+            const { action, id } = button.dataset;
+            if (action === 'edit') {
+                openModal(experiences.find(item => item.id === id));
+                return;
+            }
+            if (action === 'delete' && !window.confirm('Hapus experience ini?')) return;
+            button.disabled = true;
+            try {
+                if (action === 'star') {
+                    const data = await sendRequest(endpointFor(STAR_ENDPOINT, id), 'POST');
+                    showToast('Berhasil', data.is_starred ? 'Experience diberi star.' : 'Star dibatalkan.', 'success');
+                } else {
+                    await sendRequest(endpointFor(DETAIL_ENDPOINT, id), 'DELETE');
+                    showToast('Berhasil', 'Experience dihapus.', 'success');
+                }
+                await fetchExperiences(searchInput.value.trim());
+            } catch (error) {
+                showToast('Permintaan ditolak', error.message, 'error', 5000);
+            } finally {
+                button.disabled = false;
+            }
+        });
+
+        searchInput.addEventListener('input', function() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => fetchExperiences(searchInput.value.trim()), 300);
+        });
+        searchForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearTimeout(debounceTimer);
+            fetchExperiences(searchInput.value.trim());
+        });
+        fetchExperiences();
     </script>
 </body>
 </html>

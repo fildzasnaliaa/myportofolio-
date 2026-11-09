@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Fildza Hasnalia Nabila</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    {% include 'components/auth_style.html' %}
+</head>
+<body>
+    <header class="header-nav">
+        <span class="brand-name">Fildza Hasnalia Nabila</span>
+        <div class="nav-right">
+            <a href="{% url 'main:show_main' %}">Profile</a>
+            <a href="{% url 'main:show_education' %}">Education</a>
+            <a href="{% url 'main:show_experience' %}">Experience</a>
+            <a href="{% url 'main:show_projects' %}">Projects</a>
+        </div>
+    </header>
+
+    <main class="auth-card">
+        <div class="sub-header">BUAT AKUN BARU</div>
+        <h1 class="page-title">Register</h1>
+
+        <form method="POST" class="form-styled">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-submit">Register</button>
+        </form>
+
+        <p class="auth-switch">Sudah punya akun? <a href="{% url 'main:login' %}">Login</a></p>
+    </main>
+
+    <footer>
+        &copy; 2026 Fildza Hasnalia Nabila. Fakultas Ilmu Komputer, Universitas Indonesia.
+    </footer>
+</body>
+</html>
